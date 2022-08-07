@@ -60,31 +60,36 @@ function PokemonDetails(props: any) {
                 <div className="container-fluid">
                     <Link to='/'> Atras</Link>
                     <div className="d-flex">
-                        <button className="btn btn-outline-success" type="submit" onClick={actionItem}>{pokemon[0]?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
+                        <button className={"btn " + (pokemon[0]?.status? "btn-danger": "btn-primary")} type="submit" onClick={actionItem}>{pokemon[0]?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
                     </div>
                 </div>
             </nav>
             <div className="card" >
                 <img src={prosp.image} className="image-details" alt="..."/>
                 <div className="card-body">
-                    <h5 className="card-title fs-6">{prosp.name}</h5>
-                    <p><span>Numero :</span>  {prosp.number}</p>
-                    <p><span>Altura :</span>  {prosp.height}</p>
-                    <div><span>Tipos :</span>  
-                        <ul>
-                        {prosp.types.map((item: any) =>{
-                            return <li> <span>Tipo :</span> {item.type.name}</li>
-                        })}
-                        </ul>
-                    </div>
+                    <h3 className="card-title text-uppercase">{prosp.name}</h3>
+                    <dl className="row justify-content-md-center">
+                        <dt className="col-sm-6">Numero: </dt>
+                        <dd className="col-sm-6 props-align"> {prosp.number}</dd>
 
-                    <div><span>Estadisticas base :</span>  
-                        <ul>
-                        {prosp.stats.map((item: any) =>{
-                            return <li> <span>{labels[item.stat.name]} :</span> {item.base_stat}</li>
-                        })}
-                        </ul>
-                    </div>
+                        <dt className="col-sm-6">Altura: </dt>
+                        <dd className="col-sm-6 props-align"> {prosp.height}</dd>
+
+                        <dt className="col-sm-6">Tipos</dt>
+                        <dd className="col-sm-6 props-align">
+                            {prosp.types.map((item: any) =>{
+                                return <p className="mb-0">{item.type.name}</p>
+                            })}
+                        </dd>
+
+                        <dt className="col-sm-6">Estadisticas base :</dt>
+                        
+                        <dd className="col-sm-6 props-align">                            
+                            {prosp.stats.map((item: any) =>{
+                                return <p className="mb-0"> <span>{labels[item.stat.name]} -</span> {item.base_stat}</p>
+                            })}
+                        </dd>
+                    </dl>                    
                 </div>
             </div>
         </div>

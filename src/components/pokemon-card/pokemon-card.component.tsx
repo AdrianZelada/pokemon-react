@@ -1,4 +1,4 @@
-import { addFight, changeStatus, removeFight } from "../../actions/pokemon.action";
+
 function PokemonCard(props: any) {
     const actionList = (e: any) =>{
         e.stopPropagation();
@@ -6,8 +6,6 @@ function PokemonCard(props: any) {
     } 
 
     const clickItem = () =>{
-        console.log("clickItem");
-        console.log(props);
         props.selectItem(props.name);
     }
     return (

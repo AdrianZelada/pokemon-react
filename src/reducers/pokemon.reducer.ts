@@ -1,13 +1,25 @@
 import{
     ADD_FIGHT,
     ADD_POKEMONS,
-    CHANGE_STATUS,
     REMOVE_FIGHT
 } from '../types';
 
 export const initialState = {
     fightList: [],
     list: [],
+}
+
+const changesStatus = (list: Array<any>, payload: any) => {
+    return list.map((item: any) => {
+        if (item.id === payload.id) {
+            return {
+                ...item,
+                status: !item.status
+            }
+        } else {
+            return item
+        }
+    })
 }
 
 export function pokemonReducer(state: any = initialState, action: any) {
@@ -34,6 +46,7 @@ export function pokemonReducer(state: any = initialState, action: any) {
             if(state.fightList.length < 6) {
                 return {
                     ...state,
+                    list: changesStatus(state.list, action.payload),
                     fightList: [
                         action.payload,
                         ...state.fightList
@@ -47,25 +60,11 @@ export function pokemonReducer(state: any = initialState, action: any) {
             })
             return {
                 ...state,
+                list: changesStatus(state.list, action.payload),
                 fightList: [
                    ...list
                 ]
-            }
-        case CHANGE_STATUS:
-            const newList = state.list.map((item: any) => {
-                if(item.id === action.payload.id) {
-                    return {
-                        ...item,
-                        status: action.payload.status
-                    }
-                } else {
-                    return item
-                }                
-            });            
-            return {
-                ...state,
-                list: [...newList],                
-            }
+            }        
         default:
             return state;
     }

@@ -59,3 +59,14 @@
   width: 200px;
   margin: 0 auto;
 }
+
+.text-prosp {
+  margin:  0px;
+}
+
+.text-prosp > span{
+  font-weight: bold;
+}
+.props-align {
+  text-align: left;
+}

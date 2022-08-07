@@ -9,7 +9,7 @@ function FightList(props: any) {
             { 
                 props.list.length > 0 ?
                 props.list.map((item: any)=>{
-                    return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-6" status={item.status} dispatch={props.dispatch}></PokemonCard>
+                    return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-md-12 col-xl-6 col-lg-6" status={item.status} dispatch={props.dispatch}></PokemonCard>
                 }) : 
                 <p className="fs-6">Lista vacia, no hay ningun pokemon listo</p> 
             }      

@@ -20,7 +20,7 @@ function Board(props: any) {
             <div className="row text-center">
             { 
                 filtered.map((item: any)=>{
-                return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-3" status={item.status} dispatch={props.dispatch} selectItem={props.selectItem}></PokemonCard>
+                return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-xl-3 col-md-4" status={item.status} dispatch={props.dispatch} selectItem={props.selectItem}></PokemonCard>
                 })
             }      
             </div>

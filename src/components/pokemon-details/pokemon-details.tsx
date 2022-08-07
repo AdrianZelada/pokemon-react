@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import pokemonService from '../../pokemon.service';
 import { createSelector } from "reselect";
+import { Pokemon } from "../../types";
 
 function PokemonDetails(props: any) {
     const {name} = useParams();
+    let navigate = useNavigate(); 
     const getList= (state: any) =>{
         return state.list;
     };
     
-    const getCurrentProduct = createSelector(getList,(response: any) =>{        
-        return response.filter( (item: any) => name==item.name);
+    const getCurrentProduct = createSelector(getList,(response: Array<Pokemon>) =>{    
+        const auxPokemon = response.filter( (item: any) => name === item.name);
+        if(auxPokemon.length > 0) {
+            return auxPokemon[0];
+        } else {
+            navigate('/');
+        }
+        return auxPokemon[0] ? auxPokemon[0] : null;
     })
 
     const pokemon = getCurrentProduct(props.state);
@@ -50,17 +58,15 @@ function PokemonDetails(props: any) {
       }, []);
 
     const actionItem = () =>{        
-        props.dispatch(pokemon[0]);
+        props.dispatch(pokemon);
     }
     return (
-
-
         <div className="col-8 p-4">
             <nav className="navbar bg-light">
                 <div className="container-fluid">
                     <Link to='/'> Atras</Link>
                     <div className="d-flex">
-                        <button className={"btn " + (pokemon[0]?.status? "btn-danger": "btn-primary")} type="submit" onClick={actionItem}>{pokemon[0]?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
+                        <button className={"btn " + (pokemon?.status? "btn-danger": "btn-primary")} type="submit" onClick={actionItem}>{pokemon?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
                     </div>
                 </div>
             </nav>

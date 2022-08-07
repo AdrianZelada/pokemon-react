@@ -1,16 +1,18 @@
 import{
     ADD_FIGHT,
     ADD_POKEMONS,
+    InitialStore,
+    Pokemon,
     REMOVE_FIGHT
 } from '../types';
 
-export const initialState = {
+export const initialState: InitialStore = {
     fightList: [],
     list: [],
 }
 
-const changesStatus = (list: Array<any>, payload: any) => {
-    return list.map((item: any) => {
+const changesStatus = (list: Array<Pokemon>, payload: Pokemon) => {
+    return list.map((item: Pokemon) => {
         if (item.id === payload.id) {
             return {
                 ...item,
@@ -25,7 +27,7 @@ const changesStatus = (list: Array<any>, payload: any) => {
 export function pokemonReducer(state: any = initialState, action: any) {
     switch (action.type) {
         case ADD_POKEMONS:            
-            const data = action.payload.map((element: any) => {
+            const data = action.payload.map((element: Pokemon) => {
                 const arrayUrl = element.url.split('/');
                 const id = arrayUrl[arrayUrl.length -2];
                 return {
@@ -55,9 +57,9 @@ export function pokemonReducer(state: any = initialState, action: any) {
             }
             return state;
         case REMOVE_FIGHT:
-            const list = state.fightList.filter((item: any) => {
+            const list = state.fightList.filter((item: Pokemon) => {
                 return item.id !== action.payload.id                
-            })
+            });
             return {
                 ...state,
                 list: changesStatus(state.list, action.payload),

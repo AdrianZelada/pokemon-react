@@ -7,6 +7,7 @@ import pokemonService from './pokemon.service';
 import Board from './components/board/board';
 import FightList from './components/fight-list/fight-list';
 import PokemonDetails from './components/pokemon-details/pokemon-details';
+import { Pokemon } from './types';
 function App() {
   const [state, dispatch] = useReducer(pokemonReducer, {list: [], fightList: []});
 
@@ -17,9 +18,9 @@ function App() {
     })
   }, []);
 
-  let navigate = useNavigate(); 
+  let navigate = useNavigate();  
   
-  const actionItem =(props: any)=>{
+  const actionItem =(props: Pokemon)=>{
     let typeReducer: any;
     if (!props.status) {
       if(state.fightList.length < 6) {
@@ -41,7 +42,7 @@ function App() {
     }
   }
 
-  const goTo = (name:string)=> {
+  const goTo = (name:string)=> {    
     navigate('/board/'+name);
   }
 

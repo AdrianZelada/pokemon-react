@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+.color-gray{
+  background: rgb(231, 228, 228);
+}
+.btn-custom{
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  color: white !important;
+  position: absolute;
+  right: 10px;
+}
+.select{
+  background: red !important;
+}
+
+.notSelect{
+  background: rgb(55, 55, 240) !important;
+}
+
+.image-details{
+  width: 200px;
+  margin: 0 auto;
+}

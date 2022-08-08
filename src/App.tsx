@@ -54,7 +54,7 @@ function App() {
           <Route path='/board/:name' element={<PokemonDetails state={state} dispatch={actionItem}></PokemonDetails>}></Route>
           <Route path="" element={<Navigate to="/board" />} />
         </Routes>        
-        <FightList list={state.fightList} dispatch={actionItem} selectItem={goTo}></FightList>
+        <FightList list={state.fightList} dispatch={actionItem}></FightList>
       </div>
     </div>
   );

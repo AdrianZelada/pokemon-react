@@ -87,7 +87,6 @@ function PokemonDetails(props: any) {
                                 return <p className="mb-0">{item.type.name}</p>
                             })}
                         </dd>
-
                         <dt className="col-sm-6">Estadisticas base :</dt>
                         
                         <dd className="col-sm-6 props-align">                            

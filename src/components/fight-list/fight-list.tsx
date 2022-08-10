@@ -1,6 +1,6 @@
 import PokemonCard from "../pokemon-card/pokemon-card.component";
 
-const selectItem = (data: any) =>{}
+// const selectItem = (data: any) =>{}
 
 function FightList(props: any) {
   
@@ -11,7 +11,7 @@ function FightList(props: any) {
             { 
                 props.list.length > 0 ?
                 props.list.map((item: any)=>{
-                    return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-md-12 col-xl-6 col-lg-8" status={item.status} dispatch={props.dispatch} selectItem={selectItem}></PokemonCard>
+                    return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-md-12 col-xl-6 col-lg-8" status={item.status} dispatch={props.dispatch} selectItem={props.selectItem}></PokemonCard>
                 }) : 
                 <p className="fs-6">Lista vacia, no hay ningun pokemon listo</p> 
             }      

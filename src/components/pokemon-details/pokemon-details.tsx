@@ -3,9 +3,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import pokemonService from '../../pokemon.service';
 import { createSelector } from "reselect";
 import { Pokemon } from "../../types";
+import { editPokemon } from "../../actions/pokemon.action";
 
 function PokemonDetails(props: any) {
-    const {name} = useParams();
+    const {name} = useParams();    
     let navigate = useNavigate(); 
     const getList= (state: any) =>{
         return state.list;
@@ -17,23 +18,11 @@ function PokemonDetails(props: any) {
             return auxPokemon[0];
         } else {
             navigate('/');
-        }
+        }        
         return auxPokemon[0] ? auxPokemon[0] : null;
     })
 
     const pokemon = getCurrentProduct(props.state);
-
-    const [prosp, setProps] = useState(
-        {
-            id: 0,
-            image:'',
-            name: "",
-            number: 0,
-            height: 0,
-            types: [],
-            stats: []
-        }
-    );
     const labels: any = {
         hp: 'Vida',
         defense: "Defensa",
@@ -44,22 +33,30 @@ function PokemonDetails(props: any) {
     }
     
     useEffect(() => {
-        pokemonService.getPokemon(name).then((response) => {                  
-            setProps({
-                image: response.sprites?.front_default,
-                name: response.name,
-                number: response.id,
-                height: response.height,
-                types: response.types,
-                stats: response.stats,
-                id: response.id
-            });
-        })
-      }, []);
+        if(pokemon) {
+            if(pokemon.details) {
+
+            } else {
+                pokemonService.getPokemon(name).then((response) => {
+                    const edit = editPokemon({
+                        image: response.sprites?.front_default,
+                        name: response.name,
+                        number: response.id,
+                        height: response.height,
+                        types: response.types,
+                        stats: response.stats,
+                        id: response.id
+                    });
+                    props.dispatch(edit);
+                })
+            }
+        }
+      }, [name, pokemon]);
 
     const actionItem = () =>{        
-        props.dispatch(pokemon);
+        props.actionItem(pokemon);
     }
+
     return (
         <div className="col-8 p-4">
             <nav className="navbar bg-light">
@@ -71,26 +68,26 @@ function PokemonDetails(props: any) {
                 </div>
             </nav>
             <div className="card" >
-                <img src={prosp.image} className="image-details" alt="..."/>
+                <img src={pokemon?.details?.image} className="image-details" alt="..."/>
                 <div className="card-body">
-                    <h3 className="card-title text-uppercase">{prosp.name}</h3>
+                    <h3 className="card-title text-uppercase">{pokemon?.name}</h3>
                     <dl className="row justify-content-md-center">
                         <dt className="col-sm-6">Numero: </dt>
-                        <dd className="col-sm-6 props-align"> {prosp.number}</dd>
+                        <dd className="col-sm-6 props-align"> {pokemon?.details?.number}</dd>
 
                         <dt className="col-sm-6">Altura: </dt>
-                        <dd className="col-sm-6 props-align"> {prosp.height}</dd>
+                        <dd className="col-sm-6 props-align"> {pokemon?.details?.height}</dd>
 
                         <dt className="col-sm-6">Tipos</dt>
                         <dd className="col-sm-6 props-align">
-                            {prosp.types.map((item: any) =>{
+                            {pokemon?.details?.types.map((item: any) =>{
                                 return <p className="mb-0">{item.type.name}</p>
                             })}
                         </dd>
                         <dt className="col-sm-6">Estadisticas base :</dt>
                         
                         <dd className="col-sm-6 props-align">                            
-                            {prosp.stats.map((item: any) =>{
+                            {pokemon?.details?.stats.map((item: any) =>{
                                 return <p className="mb-0"> <span>{labels[item.stat.name]} -</span> {item.base_stat}</p>
                             })}
                         </dd>

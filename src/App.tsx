@@ -51,10 +51,10 @@ function App() {
       <div className="row text-center">
         <Routes>          
           <Route path='/board' element={<Board list={state.list} dispatch={actionItem} selectItem={goTo}></Board>}></Route>
-          <Route path='/board/:name' element={<PokemonDetails state={state} dispatch={actionItem}></PokemonDetails>}></Route>
+          <Route path='/board/:name' element={<PokemonDetails state={state} actionItem={actionItem} dispatch={dispatch}></PokemonDetails>}></Route>
           <Route path="" element={<Navigate to="/board" />} />
         </Routes>        
-        <FightList list={state.fightList} dispatch={actionItem}></FightList>
+        <FightList list={state.fightList} dispatch={actionItem} selectItem={goTo}></FightList>
       </div>
     </div>
   );

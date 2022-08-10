@@ -1,6 +1,7 @@
 import{
     ADD_FIGHT,
     ADD_POKEMONS,
+    EDIT_POKEMON,
     InitialStore,
     Pokemon,
     REMOVE_FIGHT
@@ -66,7 +67,25 @@ export function pokemonReducer(state: any = initialState, action: any) {
                 fightList: [
                    ...list
                 ]
-            }        
+            }
+        case EDIT_POKEMON:
+            const editList = state.list.map((item: Pokemon) => {
+                if(item.id == action.payload.id) {
+                    return {
+                        ...item,
+                        details: {
+                            ...action.payload
+                        }
+                    }
+                }
+                return item;
+            });
+            return {
+                ...state,
+                list: [
+                    ...editList
+                ]
+            }
         default:
             return state;
     }

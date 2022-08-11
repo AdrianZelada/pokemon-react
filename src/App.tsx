@@ -10,12 +10,34 @@ import PokemonDetails from './components/pokemon-details/pokemon-details';
 import { Pokemon } from './types';
 function App() {
   const [state, dispatch] = useReducer(pokemonReducer, {list: [], fightList: []});
+  
+  const handleInfiniteScroll = () => {
+    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+   
+    if (endOfPage) {      
+      console.log('abajo')
+      getPokemons();
+    }
+  };
 
-  useEffect(() => {
+  const getPokemons = () => {
     pokemonService.getPokemons().then((response) => {      
       const typeReducer = addPokemons(response.results);      
       dispatch(typeReducer);      
     })
+  }
+
+  useEffect(() => {
+    getPokemons();
+    // pokemonService.getPokemons().then((response) => {      
+    //   const typeReducer = addPokemons(response.results);      
+    //   dispatch(typeReducer);      
+    // })
+
+    window.addEventListener("scroll", handleInfiniteScroll);
+
+
+    return () =>{window.removeEventListener('scroll', handleInfiniteScroll)};
   }, []);
 
   let navigate = useNavigate();  

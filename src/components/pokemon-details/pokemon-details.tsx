@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import pokemonService from '../../pokemon.service';
 import { createSelector } from "reselect";

@@ -4,6 +4,7 @@ import pokemonService from '../../pokemon.service';
 import { createSelector } from "reselect";
 import { Pokemon } from "../../types";
 import { editPokemon } from "../../actions/pokemon.action";
+import store from "../../store";
 
 function PokemonDetails(props: any) {
     const {name} = useParams();    
@@ -34,9 +35,7 @@ function PokemonDetails(props: any) {
     
     useEffect(() => {
         if(pokemon) {
-            if(pokemon.details) {
-
-            } else {
+            if(!pokemon.details) {
                 pokemonService.getPokemon(name).then((response) => {
                     const edit = editPokemon({
                         image: response.sprites?.front_default,

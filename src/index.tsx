@@ -6,17 +6,22 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import { addPokemons } from './actions/pokemon.action';
+// import { ADD_FIGHT } from './types';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+// const context = React.createContext({});
+
 root.render(
   // <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>      
   // </React.StrictMode>
 );
 

@@ -2,7 +2,13 @@
 function PokemonCard(props: any) {
     const actionList = (e: any) =>{
         e.stopPropagation();
-        props.dispatch(props);
+        const data = {
+            ...props
+        }
+        delete data.dispatch;
+        delete data.selectItem;
+        delete data.className;
+        props.dispatch(data);
     } 
 
     const clickItem = () =>{

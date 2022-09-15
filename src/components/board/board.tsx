@@ -1,20 +1,25 @@
 import { useState } from "react";
+import { selectorListPokemon, useAppSelector } from "../../store-1/hooks";
 import { Pokemon } from "../../types";
 import PokemonCard from "../pokemon-card/pokemon-card.component";
 
 function Board(props: any) {
 
+    const listPokemon = useAppSelector(selectorListPokemon);
+
     const [search, setNewSearch] = useState(() => {
         return "";
     });
 
-    const pressInput = (e : any) => {    
+    const pressInput = (e : any) => {
+        console.log("result");
+        console.log(listPokemon);    
         setNewSearch(e.target.value);
     }
 
     const filtered : Array<Pokemon> = !search
-    ? props.list
-    : props.list.filter((item: Pokemon) =>{
+    ? listPokemon
+    : listPokemon.filter((item: Pokemon) =>{
        return item.name.toLowerCase().includes(search.toLowerCase()) || item.id === search;
     });
 

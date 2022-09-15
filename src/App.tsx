@@ -8,19 +8,29 @@ import Board from './components/board/board';
 import FightList from './components/fight-list/fight-list';
 import PokemonDetails from './components/pokemon-details/pokemon-details';
 import { Pokemon } from './types';
+import { selectorPokemon, useAppDispatch, useAppSelector } from './store-1/hooks';
 function App() {
-  const [state, dispatch] = useReducer(pokemonReducer, {list: [], fightList: []});
+  // const [state, dispatch] = useReducer(pokemonReducer, {list: [], fightList: []});
+  const state = useAppSelector(selectorPokemon);
+
+  const dispatch = useAppDispatch();
+
 
   useEffect(() => {
+    
     pokemonService.getPokemons().then((response) => {      
-      const typeReducer = addPokemons(response.results);      
-      dispatch(typeReducer);      
+      dispatch(addPokemons(response.results));
+      // const typeReducer = addPokemons(response.results);      
+      // dispatch(typeReducer);      
     })
   }, []);
 
   let navigate = useNavigate();  
   
   const actionItem =(props: Pokemon)=>{
+    console.log("props");
+    console.log(props);
+    console.log(state);
     let typeReducer: any;
     if (!props.status) {
       if(state.fightList.length < 6) {
@@ -28,6 +38,8 @@ function App() {
             ...props,
             status: true
         });
+        console.log("typeReducer");
+        console.log(typeReducer);
         dispatch(typeReducer);
       } else {
         alert("Ya selecciono 6 pokemons");

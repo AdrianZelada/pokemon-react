@@ -1,29 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import pokemonService from '../../pokemon.service';
-import { createSelector } from "reselect";
-import { Pokemon } from "../../types";
 import { editPokemon } from "../../actions/pokemon.action";
-import store from "../../store";
+import { selectorPokemonByName, selectorPokemonDisabled, useAppDispatch, useAppSelector } from "../../store-1/hooks";
 
 function PokemonDetails(props: any) {
     const {name} = useParams();    
     let navigate = useNavigate(); 
-    const getList= (state: any) =>{
-        return state.list;
-    };
-    
-    const getCurrentProduct = createSelector(getList,(response: Array<Pokemon>) =>{    
-        const auxPokemon = response.filter( (item: any) => name === item.name);
-        if(auxPokemon.length > 0) {
-            return auxPokemon[0];
-        } else {
-            navigate('/');
-        }        
-        return auxPokemon[0] ? auxPokemon[0] : null;
-    })
-
-    const pokemon = getCurrentProduct(props.state);
+    const pokemon = useAppSelector(selectorPokemonByName(name));
+    const disabled = useAppSelector(selectorPokemonDisabled);
+    const dispatch = useAppDispatch();
     const labels: any = {
         hp: 'Vida',
         defense: "Defensa",
@@ -46,9 +32,11 @@ function PokemonDetails(props: any) {
                         stats: response.stats,
                         id: response.id
                     });
-                    props.dispatch(edit);
+                    dispatch(edit);
                 })
             }
+        } else {
+            navigate('/');
         }
       }, [name, pokemon]);
 
@@ -61,9 +49,13 @@ function PokemonDetails(props: any) {
             <nav className="navbar bg-light">
                 <div className="container-fluid">
                     <Link to='/'> Atras</Link>
-                    <div className="d-flex">
+                    { !disabled ? <div className="d-flex">
                         <button className={"btn " + (pokemon?.status? "btn-danger": "btn-primary")} type="submit" onClick={actionItem}>{pokemon?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
-                    </div>
+                    </div> : '' 
+                    }
+                    {/* <div className="d-flex">
+                        <button className={"btn " + (pokemon?.status? "btn-danger": "btn-primary")} type="submit" onClick={actionItem}>{pokemon?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
+                    </div> */}
                 </div>
             </nav>
             <div className="card" >

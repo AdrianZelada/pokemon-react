@@ -4,19 +4,11 @@ import { Pokemon } from "../../types";
 import PokemonCard from "../pokemon-card/pokemon-card.component";
 
 function Board(props: any) {
-
     const listPokemon = useAppSelector(selectorListPokemon);
-
-    const [search, setNewSearch] = useState(() => {
-        return "";
-    });
-
+    const [search, setNewSearch] = useState(() => { return ""; });
     const pressInput = (e : any) => {
-        console.log("result");
-        console.log(listPokemon);    
         setNewSearch(e.target.value);
     }
-
     const filtered : Array<Pokemon> = !search
     ? listPokemon
     : listPokemon.filter((item: Pokemon) =>{
@@ -26,7 +18,6 @@ function Board(props: any) {
     return (
         <div className="col-8 p-4">
             <input type="text" className="form-control mb-4" placeholder='Busque el pokemon por Nombre o numero' onChange={pressInput}/>
-
             <div className="row text-center">
             { 
                 filtered.map((item: Pokemon)=>{

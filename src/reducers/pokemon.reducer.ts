@@ -10,6 +10,7 @@ import{
 export const initialState: InitialStore = {
     fightList: [],
     list: [],
+    disabled: false
 }
 
 const changesStatus = (list: Array<Pokemon>, payload: Pokemon) => {
@@ -47,22 +48,29 @@ export function pokemonReducer(state: any = initialState, action: any) {
             }
         case ADD_FIGHT:
             if(state.fightList.length < 6) {
+                const fightList = [
+                    action.payload,
+                    ...state.fightList
+                ]
                 return {
                     ...state,
+                    disabled: fightList.length === 6,
                     list: changesStatus(state.list, action.payload),
-                    fightList: [
-                        action.payload,
-                        ...state.fightList
-                    ]
+                    fightList: [...fightList]
                 }
-            }
-            return state;
+            } else {
+                return {
+                    ...state,
+                    disabled: true
+                }
+            }            
         case REMOVE_FIGHT:
             const list = state.fightList.filter((item: Pokemon) => {
                 return item.id !== action.payload.id                
             });
             return {
                 ...state,
+                disabled: false,
                 list: changesStatus(state.list, action.payload),
                 fightList: [
                    ...list

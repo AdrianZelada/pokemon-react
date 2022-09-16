@@ -15,4 +15,5 @@ export interface Pokemon {
 export interface InitialStore {
     list: Array<Pokemon>;
     fightList: Array<Pokemon>;
+    disabled: boolean;
 }

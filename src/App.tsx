@@ -29,8 +29,13 @@ function App() {
             status: true
         });        
         dispatch(typeReducer);
+        if(state.fightList.length === 5) {
+          setTimeout(() =>{
+            alert("Ya selecciono 6 pokemons, ya no podra seleccionar mas");
+          }, 650);
+        }
       } else {
-        alert("Ya selecciono 6 pokemons");
+
       }
         
     } else {
@@ -51,7 +56,7 @@ function App() {
       <div className="row text-center">
         <Routes>          
           <Route path='/board' element={<Board dispatch={actionItem} selectItem={goTo}></Board>}></Route>
-          <Route path='/board/:name' element={<PokemonDetails state={state} actionItem={actionItem} dispatch={dispatch}></PokemonDetails>}></Route>
+          <Route path='/board/:name' element={<PokemonDetails actionItem={actionItem}></PokemonDetails>}></Route>
           <Route path="" element={<Navigate to="/board" />} />
         </Routes>        
         <FightList dispatch={actionItem} selectItem={goTo}></FightList>

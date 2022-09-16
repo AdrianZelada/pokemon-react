@@ -16,3 +16,15 @@ export const selectorFightPokemon = (state:any) => {
 export const selectorPokemon = (state:any) => {
     return state.pokemonReducer;
 };
+
+export const selectorPokemonByName = (name: any) => {
+    return (state: any) => {
+        const auxPokemon = state.pokemonReducer.list.filter( (item: any) => name === item.name);
+        return auxPokemon[0] ? auxPokemon[0] : null;
+
+    }
+};
+
+export const selectorPokemonDisabled = (state:any) => {
+    return state.pokemonReducer.disabled;
+};

@@ -52,10 +52,7 @@ function PokemonDetails(props: any) {
                     { !disabled ? <div className="d-flex">
                         <button className={"btn " + (pokemon?.status? "btn-danger": "btn-primary")} type="submit" onClick={actionItem}>{pokemon?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
                     </div> : '' 
-                    }
-                    {/* <div className="d-flex">
-                        <button className={"btn " + (pokemon?.status? "btn-danger": "btn-primary")} type="submit" onClick={actionItem}>{pokemon?.status ? "Remover de la Lista": "Agregar a Lista"}</button>
-                    </div> */}
+                    }                    
                 </div>
             </nav>
             <div className="card" >

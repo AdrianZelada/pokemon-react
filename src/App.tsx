@@ -34,10 +34,7 @@ function App() {
             alert("Ya selecciono 6 pokemons, ya no podra seleccionar mas");
           }, 650);
         }
-      } else {
-
-      }
-        
+      } 
     } else {
         typeReducer = removeFight({
             ...props,

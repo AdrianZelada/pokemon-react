@@ -10,12 +10,12 @@ function PokemonCard(props: any) {
         }
         delete data.dispatch;
         delete data.selectItem;
-        delete data.className;
-        props.dispatch(data);
+        delete data.className;        
+        props.dispatch.next(data);
     } 
 
     const clickItem = () =>{
-        props.selectItem(props.name);        
+        props.selectItem.next(props.name);
     }
     
     return (

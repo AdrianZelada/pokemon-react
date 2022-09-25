@@ -1,7 +1,6 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import { pokemonReducer } from './reducers/pokemon.reducer';
 import { addFight, addPokemons, removeFight } from './actions/pokemon.action';
 import pokemonService from './pokemon.service';
 import Board from './components/board/board';
@@ -13,14 +12,14 @@ function App() {
   const state = useAppSelector(selectorPokemon);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    
     pokemonService.getPokemons().then((response) => {      
       dispatch(addPokemons(response.results));
     })
   }, []);
 
+  const keyd= 'details';
   let navigate = useNavigate();  
-  const actionItem =(props: Pokemon)=>{
+  pokemonService.actionItem.subscribe('app',(props: Pokemon) =>{    
     let typeReducer: any;
     if (!props.status) {
       if(state.fightList.length < 6) {
@@ -42,23 +41,23 @@ function App() {
         });
         dispatch(typeReducer);
     }
-  }
+  });
 
-  const goTo = (name:string)=> {    
+  pokemonService.goto.subscribe('go',(name: string) =>{
     navigate('/board/'+name);
-  }
+  });
 
   return (
     <div className="container p-5">
       <div className="row text-center">
         <Routes>          
-          <Route path='/board' element={<Board dispatch={actionItem} selectItem={goTo}></Board>}></Route>
-          <Route path='/board/:name' element={<PokemonDetails actionItem={actionItem}></PokemonDetails>}></Route>
+          <Route path='/board' element={<Board></Board>}></Route>
+          <Route path='/board/:name' element={<PokemonDetails key={keyd}></PokemonDetails>}></Route>
           <Route path="" element={<Navigate to="/board" />} />
         </Routes>        
-        <FightList dispatch={actionItem} selectItem={goTo}></FightList>
+        <FightList></FightList>
       </div>
     </div>
-  );
+  );  
 }
 export default App;

@@ -1,9 +1,15 @@
+import Observable from "./observable-service";
+
 class PokemonService {
     static instance: PokemonService;
+
+    public actionItem!: Observable;
+    public goto: Observable = new Observable();
     constructor() {
         if(PokemonService.instance){
             return PokemonService.instance;
         } else {
+            this.actionItem = new Observable();
             return this;
         }
     }
@@ -19,6 +25,8 @@ class PokemonService {
             return response.json();
         });
     }
+
+
 
 }
 

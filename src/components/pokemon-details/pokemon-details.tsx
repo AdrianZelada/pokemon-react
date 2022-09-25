@@ -40,8 +40,8 @@ function PokemonDetails(props: any) {
         }
       }, [name, pokemon]);
 
-    const actionItem = () =>{        
-        props.actionItem(pokemon);
+    const actionItem = () =>{    
+        pokemonService.actionItem.next(pokemon)        
     }
 
     return (
@@ -68,15 +68,15 @@ function PokemonDetails(props: any) {
 
                         <dt className="col-sm-6">Tipos</dt>
                         <dd className="col-sm-6 props-align">
-                            {pokemon?.details?.types.map((item: any) =>{
-                                return <p className="mb-0">{item.type.name}</p>
+                            {pokemon?.details?.types.map((item: any, k: number) =>{
+                                return <p className="mb-0" key={k}>{item.type.name}</p>
                             })}
                         </dd>
                         <dt className="col-sm-6">Estadisticas base :</dt>
                         
                         <dd className="col-sm-6 props-align">                            
-                            {pokemon?.details?.stats.map((item: any) =>{
-                                return <p className="mb-0"> <span>{labels[item.stat.name]} -</span> {item.base_stat}</p>
+                            {pokemon?.details?.stats.map((item: any, k:number) =>{
+                                return <p className="mb-0" key={k}> <span>{labels[item.stat.name]} -</span> {item.base_stat}</p>
                             })}
                         </dd>
                     </dl>                    

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import pokemonService from "../../pokemon.service";
 import { selectorListPokemon, useAppSelector } from "../../store-1/hooks";
 import { Pokemon } from "../../types";
 import PokemonCard from "../pokemon-card/pokemon-card.component";
@@ -9,6 +10,7 @@ function Board(props: any) {
     const pressInput = (e : any) => {
         setNewSearch(e.target.value);
     }
+    
     const filtered : Array<Pokemon> = !search
     ? listPokemon
     : listPokemon.filter((item: Pokemon) =>{
@@ -21,7 +23,7 @@ function Board(props: any) {
             <div className="row text-center">
             { 
                 filtered.map((item: Pokemon)=>{
-                    return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-xl-3 col-md-6 col-lg-4" status={item.status} dispatch={props.dispatch} selectItem={props.selectItem}></PokemonCard>
+                    return <PokemonCard key={item.id} id={item.id} name={item.name} image={item.image} className="col-xl-3 col-md-6 col-lg-4" status={item.status} dispatch={pokemonService.actionItem} selectItem={pokemonService.goto}></PokemonCard>
                 })
             }      
             </div>

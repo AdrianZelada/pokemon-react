@@ -17,8 +17,8 @@ function App() {
     })
   }, []);
 
-  const keyd= 'details';
   let navigate = useNavigate();  
+  
   pokemonService.actionItem.subscribe('app',(props: Pokemon) =>{    
     let typeReducer: any;
     if (!props.status) {
@@ -52,7 +52,7 @@ function App() {
       <div className="row text-center">
         <Routes>          
           <Route path='/board' element={<Board></Board>}></Route>
-          <Route path='/board/:name' element={<PokemonDetails key={keyd}></PokemonDetails>}></Route>
+          <Route path='/board/:name' element={<PokemonDetails></PokemonDetails>}></Route>
           <Route path="" element={<Navigate to="/board" />} />
         </Routes>        
         <FightList></FightList>
